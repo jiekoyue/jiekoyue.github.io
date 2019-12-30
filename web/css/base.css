@@ -1,0 +1,95 @@
+a,
+ol,
+dt,
+dl,
+dd,
+input,
+i,
+strong,
+div,
+span,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+img,
+body,
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+body {
+    font-size: 12px;
+    line-height: 1;
+}
+
+input {
+    border: none;
+    outline: none;
+}
+
+i {
+    font-style: normal;
+}
+
+strong {
+    font-weight: normal;
+}
+
+img {
+    border: none;
+    vertical-align: middle;
+}
+
+li {
+    list-style: none;
+}
+
+.clearfix::after {
+    content: ".";
+    display: block;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.f12 {
+    font-size: 12px;
+}
+
+.f14 {
+    font-size: 14px;
+}
+
+.f16 {
+    font-size: 18px;
+}
+
+.f18 {
+    font-size: 20px;
+}
+
+

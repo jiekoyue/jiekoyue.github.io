@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实验楼 - 做实验，学编程</title>
+    <link href="./favicon.ico" rel="shortcut icon">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="./js/jquery-1.12.4.js"></script>
+    <script src="./js/md5.js"></script>
+    <style>
+        @font-face {
+            font-family: 'iconfont';
+            src: url('font/iconfont.eot');
+            src: url('font/iconfont.eot?#iefix') format('embedded-opentype'),
+            url('font/iconfont.woff2') format('woff2'),
+            url('font/iconfont.woff') format('woff'),
+            url('font/iconfont.ttf') format('truetype'),
+            url('font/iconfont.svg#iconfont') format('svg');
+        }
+        .iconfont {
+            font-family: "iconfont" !important;
+            font-size: 18px;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+<body>
+<!--登录模块-->
+<div class="loginmk">
+    <div class="logincnt">
+        <span class="iconfont close">&#xe6a7;</span>
+        <div class="loginhd clearfix">
+            <span class="loginlt borderbtn">登录</span><span class="loginrt">注册</span>
+        </div>
+        <div class="loginbd" style="display: block">
+            <input type="text" placeholder="请输入大陆手机/邮箱">
+            <input type="password" placeholder="请输入密码">
+            <div class="loginnext"><label ><input type="checkbox" >下次自动登录</label>
+                <a href="./forgetposs.html">忘记密码</a></div>
+            <i class="error" style="display: none">账号或密码错误</i>
+            <a class="btn" href="javascript:void(0);">进入实验楼</a>
+        </div>
+        <div class="loginbd loginbdzc" style="display: none">
+            <span class="num">CN+86</span><input type="text" placeholder="请输入大陆手机">
+            <i class="numerror" style="display: none">号码错误</i>
+            <span class="num">邮箱：</span><input type="text" placeholder="请输入邮箱">
+            <i class="emainerror" style="display: none">邮箱错误</i>
+            <div class="verify"><input type="text" placeholder="请输入验证码">
+                <a href="javascript:void(0);">获取验证码</a>
+                <i class="verifyerroy">验证码错误</i>
+            </div>
+            <div class="loginnext clearfix">
+                <span class="num">密码:</span>
+                <input type="password" placeholder="密码">
+                <i class="posserror" style="display: none">以字母开头，长度在6~18之间，只能包含字母、数字和下划线</i></div>
+
+            <a class="btn" href="javascript:void(0);">注册</a>
+            <p>
+                注册表示您已经同意我们的
+                <a href="javascript:void(0);">隐私条款</a>
+            </p>
+
+        </div>
+        <div class="shortcut">
+            <h3>快捷登录</h3>
+            <div class="loginfont"><i class="iconfont" style="color: #5CB85C">&#xe659;</i>
+                <i class="iconfont" style="color: #5BC0DE">&#xe601;</i>
+                <i class="iconfont" style="color: #C65959">&#xe63d;</i></div>
+        </div>
+
+    </div>
+</div>
+<!--头部部分-->
+<header>
+    <div class="container clearfix ">
+        <div class="logo"><a href="./index.html"><img alt="" src="./images/logo_03.png"></a></div>
+        <div class="head-nav clearfix">
+            <ul class="header-nav-one clearfix">
+                <li>
+                    <a href="javascript:void(0);">课程<span class="caret"></span></a>
+                    <ul class="header-nav-two">
+                        <li><a href="javascript:void(0);">即将上线</a></li>
+                        <li><a href="javascript:void(0);">开发者</a></li>
+                    </ul>
+                </li>
+                <li><a href="javascript:void(0);">路径</a></li>
+                <li><a href="javascript:void(0);">讨论区</a></li>
+                <li><a href="javascript:void(0);">训练营</a></li>
+                <li><a href="javascript:void(0);">楼+</a></li>
+                <li><a href="javascript:void(0);">会员</a></li>
+            </ul>
+        </div>
+        <div class="search">
+            <input type="text" placeholder="搜索 课程/问答">
+            <div class="searchdl" style="display: block">
+                <button class="login">登录</button>
+                <button class="regsiter">注册</button>
+            </div>
+            <div class="searchuser" style="display: none">
+                <img src="./images/user.jpg" alt="">
+                <div class="usercnt">
+                    <div class="money">余额：<span>100</span><a href="javascript:void(0);">充值</a></div>
+                    <div class="course">
+                        <ul>
+                            <li><a href="javascript:void(0);">观看记录</a></li>
+                            <li><a href="javascript:void(0);">用户中心</a></li>
+                            <li><a href="javascript:void(0);">退出</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--登录js部分-->
+<script src="./js/common.js"></script>
+<!--banner部分-->
+<div class="banner">
+    <div class="banner-cnt container clearfix">
+        <div class="banner-lt">
+            <img src="./images/container-title-2.png" alt="">
+            <a href="javascript:void(0);">进入课堂</a>
+        </div>
+        <div class="banner-rt">
+            <input type="text" placeholder="昵称">
+            <input type="text" placeholder="邮箱">
+            <input type="password" placeholder="密码">
+            <button>加入实验楼</button>
+            <p>点击"加入实验楼"，表示您已经同意我们的 <a href="javascript:void(0);">隐私条款</a></p>
+        </div>
+    </div>
+</div>
+<!--指南部分-->
+<div class="guild container">
+    <ul>
+        <li><img src="./images/introduceContainer1.gif" alt=""><p>丰富全面的计算机实验课程</p></li>
+        <li><img src="./images/introduceContainer2.gif" alt=""><p>在线编程环境，1秒启动</p></li>
+        <li><img src="./images/introduceContainer3.gif" alt=""><p>每天一个项目课，丰富你的项目经验</p></li>
+        <li><img src="./images/introduceContainer4.gif" alt=""><p>有效学习时间，真实记录你的代码生涯</p></li>
+    </ul>
+</div>
+<!--学习路径部分-->
+<div class="studypath container">
+    <hr class="hrsty"/>
+    <h3 class="h3sty">学习路径</h3>
+    <ul class="clearfix">
+        <li><a href="javascript:void(0);">
+            <img src="./images/1471513730333.png" alt="">
+            <div class="txt">
+                <p>新手入门</p>
+                <span>6 门课程</span>
+                <div class="txt-pa"><p>
+                    新手入门路径帮助对 IT 技术感兴趣的新手0基础入门计算机编程。
+                    本路径通过新手入门、Linux 及 Vim课程熟悉实验楼的实践学习环境，
+                    再以 C 语言和一个简单的项目引导你一步步进入计算机技术的殿堂。
+                </p></div>
+            </div>
+        </a></li>
+        <li><a href="javascript:void(0);">
+            <img src="./images/1471513769430.png" alt="">
+            <div class="txt">
+                <p>Python研发工程师</p>
+                <span>83 门课程</span>
+                <div class="txt-pa"><p>
+                    Python技术路径中包含入门知识、Python基础、Web框架、基础项目、网络编程、数据与计算及综合项目七个模块。模块中的课程将带着你逐步深入，学会如何使用 Python 实现项目一个博客，桌面词典，微信机器人或网络安全软件等。完成本路径的实验课，将具备独立开发 Python 软件和 Web 应用的能力。
+                </p></div>
+            </div>
+        </a></li>
+        <li><a href="javascript:void(0);">
+            <img src="./images/1471513793360.png" alt="">
+            <div class="txt">
+                <p>C++ 研发工程师</p>
+                <span>26 门课程</span>
+                <div class="txt-pa"><p>
+                    C++ 学习路径中将通过使用 C++ 语言实现 Web 服务器，Markdown 解析器，内存池以及 Docker 容器管理工具等，学习并实践 C++ 编程基础，C++ 11/14 标准，C++ 图像处理及增强现实技术。完成本路径的所有实验课，将能够使用 C++  独立实现复杂的应用程序。
+                </p></div>
+            </div>
+        </a></li>
+        <li><a href="javascript:void(0);">
+            <img src="./images/1471513926288.png" alt="">
+            <div class="txt">
+                <p>大数据工程师</p>
+                <span>36 门课程</span>
+                <div class="txt-pa"><p>
+                    大数据学习路径中会学习并实践 Java、Scala、Hadoop、HBase、Mahout、Sqoop及Spark等大数据技术，本路径通过大量的动手实验，在实验数据集上实践各种大数据工具，帮助你成长为具备动手能力的大数据工程师。
+                </p></div>
+            </div>
+        </a></li>
+        <li><a href="javascript:void(0);">
+            <img src="./images/1471513867033.png" alt="">
+            <div class="txt">
+                <p>信息安全工程师</p>
+                <span>38 门课程</span>
+                <div class="txt-pa"><p>
+                    信息安全学习路径首先完成 Linux、脚本编程、数据库和网络等基础知识学习，然后通过密码学实验、系统安全实验、Web安全实验、网络安全实验四个核心模块的动手实践，强化信息安全工程师必须要掌握的系统防护，Web渗透及网络攻防等基本技能。
+                </p></div>
+            </div>
+        </a></li>
+        <li><a href="javascript:void(0);">
+            <img src="./images/1471514004752.png" alt="">
+            <div class="txt">
+                <p>Linux运维工程师</p>
+                <span>33 门课程</span>
+                <div class="txt-pa"><p>
+                    Linux运维技术路径中首先学习 Linux 相关的基本操作和系统管理，然后依次学习并实践服务部署、数据库管理、脚本编程、系统监控和安全防护、以及Web服务运维技术。最后学习 Docker 容器服务和 Windows Server的运维知识。本路径的实验将帮助你成为一名合格的 Linux 运维工程师。
+                </p></div>
+            </div>
+        </a></li>
+        <li><a href="javascript:void(0);">
+            <img src="./images/1471514111981.png" alt="">
+            <div class="txt">
+                <p>Java研发工程师</p>
+                <span>25 门课程</span>
+                <div class="txt-pa"><p>
+                    Java 学习路径中将首先完成 Java基础、JDK、JDBC、正则表达式等基础实验，然后进阶到 J2SE 和 SSH 框架学习。通过使用 Java 语言实现日记本，个人相册、编辑器、通讯录等，学习并实践 Java 编程基础，SSH 项目实战以及Java Web 应用开发。
+                </p></div>
+            </div>
+        </a></li>
+        <li><a href="javascript:void(0);">
+            <img src="./images/1471514095761.png" alt="">
+            <div class="txt">
+                <p>PHP研发工程师</p>
+                <span>30 门课程</span>
+                <div class="txt-pa"><p>
+                    PHP 技术路径中包含入门知识、PHP 编程基础、PHP Web 框架、项目实战和项目进阶五个模块。模块中的课程将带着你逐步深入，学会如何使用 PHP 实现项目一个博客，聊天室，MVC框架及搜索系统等。完成本路径所有实验课，将具备使用 PHP 独立开发 Web 应用的能力。
+                </p></div>
+            </div>
+        </a></li>
+        <li><a href="javascript:void(0);">
+            <img src="./images/1471514153000.png" alt="">
+            <div class="txt">
+                <p>Web前端工程师</p>
+                <span>34 门课程</span>
+                <div class="txt-pa"><p>
+                    Web 前端学习路径中首先实践 HTML、CSS、JavaScript、jQuery、HTML5等基础知识，然后完成实现页面特效组件、网页游戏、Web应用等一系列项目，帮助你通过动手实践成长为合格的 Web 前端工程师。
+                </p></div>
+            </div>
+        </a></li>
+        <li><a href="javascript:void(0);">
+            <img src="./images/1471514037180.png" alt="">
+            <div class="txt">
+                <p>Linux研发工程师</p>
+                <span>27 门课程</span>
+                <div class="txt-pa"><p>
+                    Linux 研发学习路径中首先学习 Linux基础、C语言、Git、GDB、数据结构等基础知识，然后完成 TCP/IP、MySQL 数据库、操作系统等实验课程。项目阶段将实现 cp、ls、touch、ping等一系列Linux命令和端口扫描、Web服务器、聊天室等网络应用，帮助你通过动手实践入门 Linux 系统研发。
+                </p></div>
+            </div>
+        </a></li>
+        <li><a href="javascript:void(0);">
+            <img src="./images/1471513817808.png" alt="">
+            <div class="txt">
+                <p>NodeJS研发工程师</p>
+                <span>21 门课程</span>
+                <div class="txt-pa"><p>
+                    NodeJS 学习路径中将通过使用 NodeJS 实现博客、在线笔记、爬虫、即时搜索、漂流瓶、端口扫描器等应用，学习并实践 NodeJS 编程基础和Web 应用开发等技术。完成本路径的所有实验课，将能够使用 NodeJS 独立实现 Web 应用程序。
+                </p></div>
+            </div>
+        </a></li>
+        <li><a href="javascript:void(0);">
+            <img src="./images/1471514058548.png" alt="">
+            <div class="txt">
+                <p>MongoDB工程师</p>
+                <span>6 门课程</span>
+                <div class="txt-pa"><p>
+                    MongoDB 技术路径中首先学习 Linux、Bash、MySQL基础知识，然后依次学习并实践 Memcached、Redis 和 MongoDB技术。本路径的实验将帮助你逐步入门 MongoDB 这类 NoSQL 数据库。
+                </p></div>
+            </div>
+        </a></li>
+    </ul>
+</div>
+<!--实验课程-->
+<div class="experimenral container">
+    <hr class="hrsty"/>
+    <h3 class="h3sty">实验课程</h3>
+    <ul class="clearfix">
+        <li><a href="javascript:void(0);"><img src="./images/ncn1.jpg" alt="">
+            <p>Linux 基础入门（新版）</p>
+            <i class="iconfont icon">&#xe62c;</i>
+            <span>85157</span>
+        </a></li>
+        <li><a href="javascript:void(0);"><img src="./images/ncn11.jpg" alt="">
+            <p>Go语言编程</p>
+            <i class="iconfont icon">&#xe62c;</i>
+            <span>5741</span>
+        </a></li>
+        <li><a href="javascript:void(0);"><img src="./images/ncn23.jpg" alt="">
+            <p>PHP编程语言</p>
+            <i class="iconfont icon">&#xe62c;</i>
+            <span>8093</span>
+        </a></li>
+        <li><a href="javascript:void(0);"><img src="./images/ncn30.jpg" alt="">
+            <p>Python Django Web框架</p>
+            <i class="iconfont icon">&#xe62c;
+            </i>
+            <span>5691</span>
+        </a></li>
+    </ul>
+    <a href="javascript:void(0);" class="look">查看更多 ></a>
+</div>
+<!--尾部部分-->
+<footer>
+    <div class="footer-content container">
+        <div class="footer-cnt-lt">
+            <img src="./images/logo_03.png" alt="">
+            <p class="font-p">动手做实验，轻松学编程</p>
+            <div class="font wx"><i class="iconfont" style="color: #5CB85C">&#xe659;</i></div>
+            <div class="font"><i class="iconfont" style="color: #5BC0DE">&#xe601;</i></div>
+            <div class="font"><i class="iconfont" style="color: #C65959">&#xe63d;</i></div>
+        </div>
+        <div class="footer-cnt-rt">
+            <dl>
+                <dt><a href="javascript:void(0);">公司</a></dt>
+                <dd><a href="javascript:void(0);">关于我们</a></dd>
+                <dd><a href="javascript:void(0);">联系我们</a></dd>
+                <dd><a href="javascript:void(0);">加入我们</a></dd>
+                <dd><a href="javascript:void(0);">技术博客</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="javascript:void(0);">合作</a></dt>
+                <dd><a href="javascript:void(0);">我要投稿</a></dd>
+                <dd><a href="javascript:void(0);">教师合作</a></dd>
+                <dd><a href="javascript:void(0);">高校合作</a></dd>
+                <dd><a href="javascript:void(0);">友情链接</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="javascript:void(0);">服务</a></dt>
+                <dd><a href="javascript:void(0);">实战训练营</a></dd>
+                <dd><a href="javascript:void(0);">会员服务</a></dd>
+                <dd><a href="javascript:void(0);">实验报告</a></dd>
+                <dd><a href="javascript:void(0);">常见问题</a></dd>
+                <dd><a href="javascript:void(0);">隐私条款</a></dd>
+            </dl>
+            <dl>
+                <dt><a href="javascript:void(0);">学习路径</a></dt>
+                <dd><a href="javascript:void(0);">Python学习路径</a></dd>
+                <dd><a href="javascript:void(0);">Linux学习路径</a></dd>
+                <dd><a href="javascript:void(0);">大数据学习路径</a></dd>
+                <dd><a href="javascript:void(0);">Java学习路径</a></dd>
+                <dd><a href="javascript:void(0);">PHP学习路径</a></dd>
+                <dd><a href="javascript:void(0);">全部</a></dd>
+            </dl>
+        </div>
+    </div>
+    <div class="copyright">
+        <p>
+            Copyright @2013-2016 实验楼在线教育 |蜀ICP备13019762号站长统计
+        </p>
+    </div>
+</footer>
+</body>
+<script>
+    let aDom = document.querySelectorAll('.studypath .clearfix a');
+    // let txtDom = document.querySelectorAll('.studypath .clearfix a .txt-pa');
+	for (var i = 0; i < aDom.length; i++) {
+        aDom[i].onmouseover = aover;
+		aDom[i].onmouseout = aout;
+	}
+	function aover() {
+        let txt = this.querySelector('.txt-pa');
+        txt.style.display = 'block';
+	}
+	function aout() {
+		let txt = this.querySelector('.txt-pa');
+		txt.style.display = 'none';
+	}
+
+
+</script>
+</html>

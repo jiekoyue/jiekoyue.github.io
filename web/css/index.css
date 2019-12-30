@@ -1,0 +1,227 @@
+/*banner部分*/
+.banner {
+    margin-top: 50px;
+    height: 612px;
+    background: url("../images/homepage-bg.png");
+    padding-top: 140px;
+}
+
+.banner .banner-cnt {
+    padding-left: 16px;
+    padding-right: 60px;
+}
+
+.banner .banner-cnt .banner-lt {
+    float: left;
+    width: 576px;
+}
+
+.banner .banner-cnt .banner-lt a {
+    display: block;
+    color: #fff;
+    text-align: center;
+    width: 154px;
+    height: 52px;
+    line-height: 52px;
+    background: #11AA8C;
+    border-radius: 5px;
+    font-size: 20px;
+    margin-top: 24px;
+}
+
+.banner .banner-cnt .banner-rt {
+    float: right;
+    width: 366px;
+    /*margin-right: 61px;*/
+}
+
+.banner .banner-cnt .banner-rt input {
+    text-indent: 1em;
+    width: 100%;
+    height: 34px;
+    border-radius: 5px;
+    margin-bottom: 24px;
+    color: #999999;
+}
+
+.banner .banner-cnt .banner-rt button {
+    margin-top: 8px;
+    width: 100%;
+    height: 52px;
+    border-radius: 5px;
+    background: #11AA8C;
+    border: none;
+    color: #fff;
+    font-size: 20px;
+}
+
+.banner .banner-cnt .banner-rt p {
+    margin-top: 5px;
+    color: #A0ADB2;
+    text-align: center;
+}
+
+.banner .banner-cnt .banner-rt p a {
+    color: #DDDDDD;
+}
+
+/*指南部分*/
+.guild {
+    height: 354px;
+}
+
+.guild ul {
+    display: flex;
+}
+
+.guild ul li {
+    padding-top: 38px;
+    flex: 1;
+    text-align: center;
+}
+
+.guild ul li p {
+    margin: auto;
+    width: 208px;
+    color: #6A849D;
+    font-size: 16px;
+}
+
+/*学习路径部分*/
+.studypath {
+    position: relative;
+    height: 646px;
+}
+
+.hrsty {
+    width: 480px;
+    margin: 0 auto;
+    background: #777777;
+}
+
+.h3sty {
+    width: 208px;
+    position: absolute;
+    top: -18px;
+    left: 50%;
+    margin-left: -104px;
+    font-size: 30px;
+    color: #777777;
+    text-align: center;
+    background: #fff;
+}
+
+.studypath ul {
+    margin-top: 82px;
+    padding-left: 31px;
+}
+
+.studypath ul li {
+    width: 351px;
+    height: 101px;
+    float: left;
+    margin-bottom: 10px;
+    margin-right: 28px;
+    box-shadow: 2px 0 5px #ccc;
+}
+
+.studypath ul li a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: #9B9DA2;
+}
+
+.studypath ul li a .txt {
+    position: relative;
+    height: 100px;
+    width: 250px;
+    float: right;
+
+}
+
+.studypath ul li a .txt p {
+    font-size: 18px;
+    margin: 24px 0 0 33px;
+    color: #565656;
+}
+
+.studypath ul li a .txt span {
+    display: block;
+    margin-top: 18px;
+    margin-left: 33px;
+    font-size: 14px;
+}
+
+.studypath ul li a .txt .txt-pa {
+    display: none;
+    position: absolute;
+    height: 100px;
+    width: 251px;
+    top: 0;
+    right: 0;
+    padding: 16px 0 0 13px;
+    background: #A9A9A9;
+    opacity: .9;
+    color: #FFF2DE;
+
+
+}
+.studypath ul li a .txt .txt-pa p{
+    width: 227px;
+    -webkit-line-clamp: 3;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    margin: 0;
+    line-height: 24px;
+    color: #fff;
+}
+
+/*实验课程*/
+.experimenral{
+    position: relative;
+    height: 400px;
+}
+.experimenral ul{
+    margin-top: 84px;
+    margin-left: 30px;
+}
+.experimenral ul li{
+    float: left;
+    width: 256px;
+    height: 222px;
+    margin-right: 29px;
+    box-shadow: 2px 0 5px #ccc;
+}
+.experimenral ul li a{
+    display: block;
+    width: 100%;
+    height: 100%;
+
+}
+.experimenral ul li a img{
+    width: 255px;
+    height: 140px;
+}
+.experimenral ul li a .icon{
+    color: #9B9DA2;
+     margin-left: 14px;
+    vertical-align: middle;
+ }
+.experimenral ul li a p{
+    margin: 16px 0 25px 14px;
+    font-size: 16px;
+}
+.experimenral ul li a span{
+    color: #9B9DA2;
+    display: inline-block;
+}
+.experimenral .look{
+    float: right;
+    margin-top: 28px;
+    margin-right: 14px;
+    color: #787878;
+}

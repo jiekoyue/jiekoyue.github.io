@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>Document</title>
+    <link href="./css/base.css" rel="stylesheet">
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script src="./js/md5.js"></script>
+    <script src="./js/jquery-1.12.4.js"></script>
+    <style>
+        input {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 100px;
+            height: 30px;
+            text-indent: 1em;
+        }
+
+        form {
+            width: 300px;
+            height: 500px;
+            margin: 100px auto;
+        }
+
+        div {
+            margin-top: 20px;
+        }
+
+        .loginbdzc .num {
+            cursor: pointer;
+            margin-left: 18px;
+            width: 20%;
+            color: #999;
+        }
+
+        .loginbdzc input {
+            width: 70%;
+            margin-left: 22px;
+        }
+
+        .loginbdzc .loginnext input {
+            width: 80%;
+            height: 30px;
+            margin: 0;
+            float: right;
+        }
+
+        .loginbdzc .loginnext span {
+            margin: 0;
+            padding-left: 10px;
+            float: left;
+            height: 30px;
+            line-height: 30px;
+        }
+
+        .loginbdzc .loginnext i {
+            top: 220px;
+            left: 53px;
+        }
+
+        .loginbdzc p {
+            text-align: center;
+            margin-top: 10px;
+            color: #999;
+        }
+
+        .loginbdzc p a {
+            color: #11AA8C;
+        }
+
+        .loginbdzc i {
+            position: absolute;
+            font-size: 10px;
+            color: red;
+        }
+
+        .loginbdzc .verify {
+            position: relative;
+        }
+
+        .loginbdzc .verify input {
+            margin-left: 0;
+        }
+
+        .loginbdzc .verify a {
+            width: 80px;
+            text-align: center;
+            padding: 10px 0;
+            border-radius: 18px;
+            color: #fff;
+            display: inline-block;
+            background: #11AA8C;
+        }
+
+        .loginbdzc .verify i {
+            display: none;
+            position: absolute;
+            top: 53px;
+            left: 58px;
+        }
+
+        .btn {
+            margin-top: 25px;
+            display: block;
+            width: 100%;
+            height: 37px;
+            border-radius: 20px;
+            background: #11AA8C;
+            text-align: center;
+            font-size: 14px;
+            line-height: 37px;
+            color: #fff;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+<form action="" class="loginbdzc">
+    <div><span class="num">CN+86</span><input placeholder="请输入大陆手机" type="text">
+        <i class="numerror" style="display: none">号码错误</i></div>
+    <div><span class="num">邮箱：</span><input placeholder="请输入邮箱" type="text">
+        <i class="emainerror" style="display: none">邮箱错误</i></div>
+    <div class="verify"><input placeholder="请输入邮箱验证码" type="text">
+        <a href="javascript:void(0);">获取验证码</a>
+        <i class="verifyerroy">验证码错误</i>
+    </div>
+    <div class="loginnext clearfix">
+        <span class="num">密码:</span>
+        <input placeholder="密码" type="password">
+        <i class="posserror" style="display: none">以字母开头，长度在6~18之间，只能包含字母、数字和下划线</i>
+    </div>
+
+    <a class="btn" href="javascript:void(0);">确定修改</a>
+    <p>
+        注册表示您已经同意我们的
+        <a href="javascript:void(0);">隐私条款</a>
+    </p>
+</form>
+<script>
+    let index = 0;
+	let verification = '';
+	$('.verify a').click(function () {
+		let num = $(this).parent('div').siblings('div').find('input');
+		console.log(num);
+		let id = 60, index = '';
+		verification = randomNum();
+		console.log(verification);
+		let arrey = getuser();
+		if (arrey) {
+			for (let i = 0; i < arrey.length; i++) {
+				if (num[0].value == arrey[i].user && num[1].value == arrey[i].email) {
+					index -= i;
+					Email.send({
+						Host: "smtp.163.com",
+						Username: "15270037040@163.com",
+						Password: "+227feng-",
+						To: num[1].value,
+						From: "15270037040@163.com",
+						Subject: "实验楼验证码",
+						Body: verification
+					}).then(
+						message => shiFou(message), index = setInterval(function () {
+							if (id == 0) {
+								clearInterval(index);
+								$('.loginbdzc .verify a').text('请重新获取')
+							} else {
+								$('.loginbdzc .verify a').text(id--);
+							}
+
+						}, 1000))
+                    return;
+				}
+			}
+			alert('该账户没有注册');
+		} else {
+			alert('该账户没有注册');
+		}
+	});
+    $('.btn').click(function () {
+    	let code = $('.verify input').val();
+        let poss = $('.loginnext input').val();
+    	let num = $(this).siblings('div').find('input');
+		if (verification != null) {
+			if (code == verification) {
+				$('.loginbdzc .verify i').css('display', 'none');
+				if (/^[a-zA-Z]\w{5,17}$/.test(poss)) {
+					$('.loginbdzc .posserror').css('display', 'none');
+					let arr = {
+						user: num[0].value,
+						email: num[1].value,
+						poss: poss
+					};
+					setuser(arr,index);
+					setLocal(arr);
+					$('input').val('');
+					open('./index.html','_self');
+					return;
+				} else {
+					$('.loginbdzc .posserror').css('display', 'block')
+				}
+			} else {
+				$('.loginbdzc .verify i').css('display', 'block').text('验证码错误')
+			}
+		} else {
+			$('.loginbdzc .verify i').css('display', 'block').text('请输入验证码');
+		}
+	});
+	//随机数
+	function randomNum() {
+		let num = Math.floor((Math.random() * 1000000) + 100000);
+		// console.log(num);
+		return num;
+	}
+
+	//判断是否发送成功{
+	function shiFou(message) {
+		let i = 2;
+		if (message.length != i) {
+			$('.loginbdzc .verify a').text('发送失败');
+		}
+	}
+
+	//b.获取用户数据
+	function getuser() {
+		var len = localStorage.length;
+		index = len;
+		var arrey = []; // 定义数据集
+		for (var i = 0; i < len; i++) {
+			// 获取key 索引从0开始
+			var getKey = localStorage.key(i);
+			// 获取key对应的值
+			var getVal = localStorage.getItem(getKey);
+			getVal = JSON.parse(getVal);
+			// 放进数组
+			arrey[i] = getVal;
+		}
+		if (arrey != null) {
+			return arrey;
+		} else {
+			return false;
+		}
+	}
+
+	//b.保存用户数据
+	function setuser(arr,keyId) {
+		arr.poss = str_md5(arr.poss);
+		let arrey = JSON.stringify(arr);
+		localStorage.setItem(keyId, arrey);
+	}
+
+	//a.保存登录成功和注册成功
+	function setLocal(obj) {
+		// obj.poss = str_md5(obj.poss);
+		let num = JSON.stringify(obj);
+		sessionStorage.setItem('num', num);
+	}
+</script>
+</body>
+</html>
