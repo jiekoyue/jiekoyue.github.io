@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>贪吃蛇</title>
+    <style>
+        .map {
+            margin: 10px auto;
+            width: 800px;
+            height: 600px;
+            background: #ccc;
+            position: relative;
+        }
+
+        .map div {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+        }
+    </style>
+<!--    <script src="../../../预习资料/js高级/04.js高级第四天/04- 源代码/code/贪吃蛇/index.js"></script>-->
+</head>
+<body>
+<div class="map"></div>
+</body>
+<script src="index.js"></script>
+<script>
+	let map = document.querySelector('.map');
+	let foot = new Foot();
+	foot.foot(map)
+	let setSnake = new Snake();
+	setSnake.create(map);
+	move(map);
+</script>
+</html>

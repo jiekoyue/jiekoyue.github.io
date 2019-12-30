@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .box {
+            width: 400px;
+            height: 400px;
+            margin: 20px auto;
+            background: pink;
+            display: flex;
+            flex-wrap: wrap;
+            border: none;
+        }
+
+        div {
+            width: 40px;
+            height: 40px;
+            background: blue;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
+</body>
+<script>
+	let le = [];
+	let divs = document.querySelectorAll('.box>div');
+	for (let i = 0; i < divs.length; i++) {
+		divs[i].setAttribute('index', 0);
+		divs[i].setAttribute('sub', i + 1);
+		divs[i].onclick = divclick;
+	}
+
+	function divclick() {
+		let sub = +this.getAttribute('sub');
+		panDuan(sub);
+		let index = this.getAttribute('index');
+		if (index == 0) {
+			this.style.backgroundColor = '#fff';
+			kon(sub);
+
+		} else if (index == 11) {
+			baoLei();
+		} else {
+			this.innerHTML = index;
+			this.style.backgroundColor = "#fff";
+		}
+	}
+
+	//传下标点击空白的连锁反应方法
+    function kon(sub) {
+		let sub1 = sub - 10;
+		let sub2 = sub + 10;
+		let sub3 = sub - 1;
+		let sub4 = sub + 1;
+		if (sub1 > 0) {
+			divs[sub1 - 1].onclick();
+		}
+		if (sub2 < 100) {
+			divs[sub2 - 1].onclick();
+		}
+		if (sub % 10 == 0) {
+			divs[sub3 - 1].onclick();
+		}
+		if (sub % 10 == 1) {
+			divs[sub4 - 1].onclick();
+		}
+	}
+
+	//判断周边雷的数量
+	function panDuan(sub) {
+		let sub0 = sub - 1;
+		let sub1 = sub + 1;
+		let sub2 = sub - 10;
+		let sub3 = sub2 + 1;
+		let sub4 = sub2 - 1;
+		let sub5 = sub + 10;
+		let sub6 = sub5 + 1;
+		let sub7 = sub5 - 1;
+		if (sub % 10 == 0) {
+			sub1 = sub3 = sub6 = -1;
+		}
+		if (sub % 10 == 1) {
+			sub0 = sub4 = sub7 = -1;
+		}
+		let arr = [];
+
+		arr.push(sub0);
+		arr.push(sub1);
+		arr.push(sub2);
+		arr.push(sub3);
+		arr.push(sub4);
+		arr.push(sub5);
+		arr.push(sub6);
+		arr.push(sub7);
+
+		let count = 0;
+
+		for (let i = 0; i < arr.length; i++) {
+			if (arr[i] > 0 && arr[i] < 100) {
+
+				if (divs[arr[i] - 1].getAttribute('index') == 11) {
+					count++;
+				}
+			}
+
+		}
+		if (count != 0) {
+			divs[sub - 1].setAttribute('index', count);
+		}
+	}
+
+	//暴雷方法
+	function baoLei() {
+		let bao = document.querySelectorAll('div[index="11"]');
+		for (let i = 0; i < bao.length; i++) {
+			bao[i].style.backgroundColor = '#fff';
+			bao[i].innerHTML = '*';
+		}
+	}
+
+	//设置随机雷
+	let shu = Infinity
+	for (let j = 0; j < shu; j++) {
+		let suiJi = Math.floor(Math.random() * 100);
+		let isOk = false;
+		for (let i = 0; i < le.length; i++) {
+			if (le[i] == suiJi) {
+				isOk = true;
+				break;
+			}
+		}
+		if (!isOk) {
+			le.push(suiJi);
+		}
+		if (le.length >= 10) {
+			shu = 0;
+		}
+	}
+	for (let i = 0; i < le.length; i++) {
+		divs[le[i]].setAttribute('index', 11);
+		console.log(le[i]);
+	}
+</script>
+</html>
