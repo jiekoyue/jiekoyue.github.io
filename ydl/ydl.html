@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>一面定薪</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+    <!--<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.4.0.js"></script>-->
+    <script type="text/javascript" src="https://res.wx.qq.com/open/js/jweixin-1.3.2.js"></script>
+    <style>
+        /* pages/introduction/introduction.wxss */
+        html,
+        body {
+            height: 100%;
+            font-family: "Microsoft YaHei";
+        }
+
+        .tab-item {
+            background: #ffffff;
+            border-radius: 4px;
+            padding: 10px;
+        }
+
+        .tab-icon {
+            width: 32px;
+            height: 32px;
+            background-size: cover;
+        }
+
+        .tab-item-company {
+            background-image: url('./img/nav_icon_introduce@2x.png');
+        }
+
+        li.active .tab-item-company {
+            /*background-image: url('./img/nav_icon_introduce_click@2x.png');*/
+        }
+
+        .tab-icon-team {
+            background-image: url('./img/nav_icon_team@2x.png');
+        }
+
+        li.active .tab-icon-team {
+            /*background-image: url('./img/nav_icon_team_click@2x.png');*/
+        }
+
+        .tab-item-culture {
+            background-image: url('./img/nav_icon_life@2x.png');
+        }
+
+        li.active .tab-item-culture {
+            /*background-image: url('./img/nav_icon_life_click@2x.png');*/
+        }
+
+        .tab-item-evaluating {
+            background-image: url('./img/nav_icon_evaluation@2x.png');
+        }
+
+        li.active .tab-item-evaluating {
+            /*background-image: url('./img/nav_icon_evaluation_click@2x.png');*/
+        }
+
+        li.active .tab-title {
+            color: #e60012;
+        }
+        li.active:nth-child(2) .tab-title {
+            color: #4e8cf2;
+        }
+        .tab-title {
+            color: #333333;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 0;
+        }
+
+        .characters {
+            padding: 15px;
+            color: #464646;
+        }
+
+        #home .characters p {
+            margin: 10px 0 0;
+        }
+
+        .flex-center-column {
+            display: flex !important;
+            display: -webkit-flex !important;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .flex-center {
+            display: flex !important;
+            display: -webkit-flex !important;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-tabs {
+            border-bottom: unset !important;
+            justify-content: space-around !important;
+            padding: 5px 0;
+        }
+
+        .nav-tabs li {
+            width: 22vw;
+            height: 22vw;
+        }
+
+        .nav-tabs > li > a {
+            border: 1px solid #cccccc!important;
+            border-radius: 4px;
+            margin-right: 0px;
+            padding: 7px!important;
+        }
+
+        .nav-tabs > li.active:nth-of-type(even) > a,
+        .nav-tabs > li.active:nth-of-type(even) > a:focus,
+        .nav-tabs > li.active:nth-of-type(even) > a:hover {
+            /*background-color: #4E8CF2 !important;*/
+            border: 2px solid #4e8cf2 !important;
+        }
+
+        .nav-tabs > li.active:nth-of-type(odd) > a,
+        .nav-tabs > li.active:nth-of-type(odd) > a:focus,
+        .nav-tabs > li.active:nth-of-type(odd) > a:hover {
+            /*background-color: #C8132D !important;*/
+            border: 2px solid #e60012 !important;
+            color: #ffffff;
+        }
+
+        .video {
+            width: 100%;
+            height: 100%;
+        }
+
+        .mask {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+            background: rgba(0, 0, 0, .75);
+            display: flex;
+            display: -webkit-flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .alert {
+            width: 80%;
+            background: #FFFFFF;
+            border-radius: 6px;
+            max-width: 500px;
+        }
+
+        .alert-header {
+            font-size: 17px;
+            color: #4e8cf2;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .alert-content {
+            width: 80%;
+            margin: auto;
+            border: 1px solid #E5E5E5;
+            padding: 15px;
+        }
+
+        @media only screen and (max-width: 360px) {
+            .alert-content {
+                width: 90%;
+                padding: 5px;
+            }
+        }
+
+        .qrcode-wrapper {
+            width: 100%;
+            padding-top: 100%;
+            position: relative;
+        }
+
+        .qrcode-wrapper .qrcode {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+        }
+
+        .alert-attention {
+            padding-top: 10px;
+        }
+
+        .alert-attention p {
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #333333;
+        }
+
+        .header-top {
+            width: 100%;
+            height: 210px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .carousel {
+            /*height: 260px;*/
+            overflow: hidden;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .indent2 {
+            text-indent: 2em;
+            margin-bottom: 1em;
+        }
+
+        th, td {
+            text-align: center;
+        }
+        b{
+            color: #333;
+            background: #ccc;
+        }
+        #profile img,#messages img{
+            width: 100%;
+            /*margin-bottom: 10px;*/
+        }
+        b.red{
+            color: #e70213;
+            background: none;
+        }
+        .arrow {
+            position: fixed;
+            bottom: 40px;
+            right: 25px;
+            -webkit-animation: arrow 1.2s .5s ease-in-out infinite;
+            animation: arrow 1.2s .5s ease-in-out infinite;
+            width: 24px;
+            height: 14px;
+        }
+
+        @-webkit-keyframes arrow {
+            0% {
+                -webkit-transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: translateY(-50%);
+                opacity: 0
+            }
+        }
+
+        @keyframes arrow {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50%);
+                opacity: 0
+            }
+        }
+        .pre-box1, .pre-box2 {
+            height: 15px;
+            width: 11px;
+            position: absolute;
+            top: -5px;
+            overflow: hidden;
+        }
+
+        .pre-box2 {
+            left: 10px;
+        }
+
+        .pre1 {
+            transform: rotate(130deg);
+            -webkit-transform: rotate(130deg);
+            left: 1px;
+        }
+
+        .pre2 {
+            left: -4.5px;
+            -webkit-transform: rotate(50deg);
+            transform: rotate(50deg);
+        }
+
+        .pre1, .pre2 {
+            background-color: #e70213;
+            width: 14px;
+            height: 2px;
+            border-radius: 2px;
+            position: absolute;
+            box-shadow: 1px -1px 1px #646464;
+            top: 5px;
+        }
+        .pre-box3, .pre-box4 {
+            height: 15px;
+            width: 11px;
+            position: absolute;
+            top: 4px;
+            overflow: hidden;
+        }
+
+        .pre-box4 {
+            left: 10px;
+        }
+
+        .pre3 {
+            transform: rotate(130deg);
+            -webkit-transform: rotate(130deg);
+            left: 1px;
+        }
+
+        .pre4 {
+            left: -4.5px;
+            -webkit-transform: rotate(50deg);
+            transform: rotate(50deg);
+        }
+
+        .pre3, .pre4 {
+            background-color: #e70213;
+            width: 14px;
+            height: 2px;
+            border-radius: 2px;
+            position: absolute;
+            box-shadow: 1px -1px 1px #646464;
+            top: 5px;
+        }
+        .tab-content p{
+            letter-spacing: 2px;
+            line-height: 2em;
+        }
+        .mb0{
+            margin-bottom: 0!important;
+        }
+        .indent4{
+            text-indent: 4em;
+        }
+        .tac{
+            text-align: center;
+        }
+        #home .mb0{
+            margin: 0 !important;
+        }
+    </style>
+    <script src="jquery.lazyload.min.js"></script>
+</head>
+<body>
+<!--pages/introduction/introduction.wxml-->
+<div class="introduction-header">
+    <div class="header-top">
+        <video id="headervideo" autoplay muted src="/files/applet/vedio/brief.mp4" controls="controls" class="video" playsinline="true"
+               webkit-playsinline="true" x5-playsinline="" x-webkit-airplay="true">
+            您的浏览器不支持 video 标签。
+        </video>
+    </div>
+    <div>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs flex-center" role="tablist">
+            <li role="presentation" class="active">
+                <a class="tab-item flex-center-column" href="#home" aria-controls="home" name="brief" role="tab"
+                   data-toggle="tab">
+                    <div class="tab-icon tab-item-company"></div>
+                    <p class="tab-title">公司简介</p>
+                </a>
+            </li>
+            <li role="presentation">
+                <a class="tab-item flex-center-column" href="#profile" aria-controls="profile" name="introduce"
+                   role="tab" data-toggle="tab">
+                    <!--<img class="tab-icon" src="./img/enterprise_icon_team@3x.png" />-->
+                    <div class="tab-icon tab-icon-team"></div>
+                    <p class="tab-title ">团队介绍</p>
+                </a>
+            </li>
+            <li role="presentation">
+                <a class="tab-item flex-center-column " href="#messages" aria-controls="messages" name="activity"
+                   role="tab" data-toggle="tab">
+                    <div class="tab-icon tab-item-culture"></div>
+                    <p class="tab-title ">Life Style</p>
+                </a>
+            </li>
+            <li role="button" id="test">
+                <a class="tab-item flex-center-column" role="button">
+                    <div class="tab-icon tab-item-evaluating"></div>
+                    <p class="tab-title">人才测评</p>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <div class="characters">
+                    <div class="indent2">点击进入
+                        <a href="https://www.eplbks.com/index.php/home/gyydl/gyydl.html"
+                           style="color: #ea313d;font-weight: 600;">企业网站</a>
+                    </div>
+                    <p class="indent2 mb0">
+                        永达理成立于2011年，10年时间已经是中国领先的，独立第三方金融机构 - 保险经纪公司，注册资本金8000万，2020年达成 1365 位 MDRT；
+                    </p>
+                    <p class="indent2 mb0">
+                        2020年MDRT数量全球排名第 8 名
+                    </p>
+                    <p class="indent2 ">
+                        永达理是一家专业、稳健、创新，以成为客户最信赖的家庭顾问为宗旨，
+                    </p>
+                    <p class="indent2 mb0">
+                        为企业和个人提供涵盖保险保障、退休养老规划、子女教育金规划和财富规划等
+                        全方位产品及专业服务的第三方金融机构。
+                    </p>
+                    <p class="indent2">
+                        历经10年积淀、五载发力，永达理现拥有遍布华北、华中、华东、华南、西南、东北
+                    </p>
+                    <p class="indent2 mb0">
+                        六大区域的17家省级分公司，全国47家营业网点，
+                    </p>
+                    <p class="indent2 mb0">
+                        是中国的“百万圆桌会员”摇篮地之一，
+                    </p>
+                    <p class="indent2 mb0">
+                        以高绩效、高件均、高素质而闻名于金融行业。
+                    </p>
+                    <p class="indent2">
+                        2020年，永达理新契约保费达12.6亿元，人均FYP达19万元，
+                    </p>
+                    <p class="indent2 mb0">
+                        业务主管人力6645人，人力结构高素质人才占比高，
+                    </p>
+                    <p class="indent2 mb0">
+                        其中本科及以上学历人员占比近半。
+                    </p>
+                    <p class="indent2 mb0">
+                        吸引了大量海归博士、大学现职教授、律师、会计师、企业主、企业高管等高素质人才。
+                    </p>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <div class="characters ">
+                    <p class="indent2">
+                        新生代保险企业家 - 有颜、有趣、有生活。
+                    </p>
+                    <p class="indent2 mb0">
+                        自从进入互联网经济时代以来，
+                    </p>
+                    <p class="indent2 mb0">
+                        跨界的风潮愈吹愈烈。
+                    </p>
+                    <p class="indent2 mb0">
+                        各个独立的主体不断融合、渗透，
+                    </p>
+                    <p class="indent2">
+                        逐渐创造出创新的、可持续发展的元素。
+                    </p>
+                    <p class="indent2">
+                        当然，随着经济的发展，<b>「跨界」</b>一说早已不局限于独立的个体之间。
+                    </p>
+                    <p class="indent2 mb0">
+                        在保险行业里，有一群在艺术领域，
+                    </p>
+                    <p class="indent2 mb0">
+                        特别是包豪斯艺术体系里玩起了跨界的
+                    </p>
+                    <p class="indent2 mb0">
+                        <b>新生代保险企业家——永达理柏宏体系。</b>
+                    </p>
+                    <p class="indent2 mb0">
+                        他们融合百年前包豪斯的经典艺术教育体系，
+                    </p>
+                    <p class="indent2 mb0">
+                        以及包豪斯的思维方式，
+                    </p>
+                    <p class="indent2 ">
+                        在保险行业里另辟蹊径，并逐渐走向成熟。
+                    </p>
+                    <p class="indent2">
+                        点击查看<a style="color:#e70213;font-weight: bold;" href="https://mp.weixin.qq.com/s/pwqt8zlkOlOY0PVC80AlBw">【追求理性美学的艺术家与保险经纪人】</a>
+                    </p>
+                    <p class="indent2">
+                        <b>财富管理是一个系统的培训体系</b>
+                    </p>
+                    <p class="indent2 mb0">
+                        就如同包豪斯时期，工业化社会背景下，
+                    </p>
+                    <p class="indent2 mb0">
+                        需要设计师们是即熟悉传统工艺又了解现代工业生产方式与设计规律
+                        的人才。
+                    </p>
+                    <p class="indent2 mb0">
+                        现时代的财富管理也不再是简单的理财产品拼装，
+                    </p>
+                    <p class="indent2 ">
+                        是保险、法律、信托等金融产品的“跨界组团”。
+                    </p>
+                    <p class="indent2">
+                        <b>系统性统筹</b>和<b>动态管理</b>是中国财富群体当前需要解决的普遍问题。
+                    </p>
+                    <p class="indent2 mb0">
+                        借鉴包豪斯循序渐进的<b>三阶段销售</b>，
+                    </p>
+                    <p class="indent2 mb0">
+                        永达理柏宏体系在保险经纪人。
+                    </p>
+                    <p class="indent2">
+                        <b>职业素质、系统性思维、专业能力养成</b>方面制定了自己严格的培训体系
+                        模型：
+                    </p>
+                    <img class="lazy" data-original="./img/team_img_06@2x.png">
+                    <img class="lazy" data-original="./img/team_img_07@2x.png">
+                    <img class="lazy" data-original="./img/team_img_08@2x.png">
+                    <img class="lazy" data-original="./img/team_img_09@2x.png">
+                    <img class="lazy" data-original="./img/team_img_10@2x.png">
+                    <img class="lazy" data-original="./img/team_img_11@2x.png">
+                    <img class="lazy" data-original="./img/team_img_12@2x.png" style="margin-bottom: 1em;">
+                    <p class="indent2">
+                        MDRT是衡量一个团队专业度、培训成果的核心数据。
+                    </p>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-condensed" style="width: 100%; max-width: 100%;">
+                            <thead>
+                            <tr>
+                                <th width="25">团队</th>
+                                <th>团队人数</th>
+                                <th>MDRT人数</th>
+                                <th>MDRT占比</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>行业平均值</td>
+                                <td>每1000人</td>
+                                <td>3位</td>
+                                <td>0.3%</td>
+                            </tr>
+                            <tr>
+                                <td>永达理(全国)</td>
+                                <td>6645人</td>
+                                <td>1365位</td>
+                                <td>20.5%</td>
+                            </tr>
+                            <tr>
+                                <td>柏宏体系</td>
+                                <td>107人</td>
+                                <td>41位</td>
+                                <td>38.3%</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="indent2 mb0">
+                        <b class="red">如果一个人的成功是奇迹，</b>
+                    </p>
+                    <p class="indent2 mb0">
+                        <b class="red">那么一群人的成功一定有它的轨迹和方法。</b>
+                    </p>
+                    <p class="indent2 mb0">
+                        完成MDRT不仅代表着荣誉和客户对我们的认可，
+                    </p>
+                    <p class="indent2 mb0">
+                       同时也意味着卓越的收入和奖励
+                    </p>
+                    <!--<p class="indent2">-->
+                        <!--【奖励细项】-->
+                    <!--</p>-->
+                    <!--<p class="indent2">-->
+                        <!-- -公司奖励海外旅游1次（希腊、迪拜、瑞士、法国、英国等等）-->
+                    <!--</p>-->
+                    <!--<p class="indent2">-->
+                        <!-- -公司带领全体MDRT去参加全球的MDRT年会，与全球的卓越人才MDRT做深入交流学习（美国/迪拜），全程公司款待-->
+                    <!--</p>-->
+                    <!--<p class="indent2">-->
+                        <!-- -公司在海外（日本/巴厘岛/新加坡等）举办高手交流会，邀请全国永达理MDRT进行交流，互相学习、总结经验-->
+                    <!--</p>-->
+                    <!--<p class="indent2">-->
+                        <!-- -参加全国业务表彰大会，不仅获得全国的荣誉嘉奖，同时还有机会抽奖获得奔驰等大奖-->
+                    <!--</p>-->
+                    <p class="indent2 mb0">
+                        【团队业绩】
+                    </p>
+                    <p class="indent2 mb0">
+                        累计团队规模保费：2.2亿元
+                    </p>
+                    <p class="indent2 mb0">
+                        累计服务的家庭以及个人数量：10,850位客户以及家庭
+                    </p>
+                    <p class="indent2 mb0">
+                        【团队人才素质】
+                    </p>
+                    <p class="indent2 mb0">
+                        硕士生占比：4.3%
+                    </p>
+                    <p class="indent4 mb0 ">
+                        （清华大学）
+                    </p>
+                    <p class="indent4 mb0 ">
+                        （中南财经政法大学）
+                    </p>
+                    <p class="indent4 mb0 ">
+                        （香港理工大学）
+                    </p>
+                    <p class="indent4 mb0">
+                        （华南理工大学）
+                    </p>
+                    <p class="indent2 mb0">
+                        本科生占比：45.8%
+                    </p>
+                    <p class="indent4 mb0 ">
+                        （哥伦比亚大学）
+                    </p>
+                    <p class="indent4 mb0 ">
+                        （利物浦大学）
+                    </p>
+                    <p class="indent4 mb0 ">
+                        （西悉尼大学）
+                    </p>
+                    <p class="indent4 mb0 ">
+                        （中山大学）
+                    </p>
+                    <p class="indent4 mb0">
+                        （上海交通大学）
+                    </p>
+                    <p class="indent2 mb0">
+                        大专生占比：38.3%
+                    </p>
+                    <p class="indent2 mb0">
+                        其他：11.6%
+                    </p>
+                    <p class="indent2">
+                        团队平均年龄: 37.7岁
+                    </p>
+                    <div id="carousel" class="carousel slide" style="position: relative;">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img img="./img/team_img01@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img img="./img/team_img02@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img img="./img/team_img03@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img img="./img/team_img04@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img img="./img/team_img05@2x.png" class="img-responsive">
+                            </div>
+                            <!--<div class="item">-->
+                                <!--<img img="./img/team_img03@2x.png" class="img-responsive">-->
+                            <!--</div>-->
+                            <!--<div class="item">-->
+                                <!--<img img="./img/team_img02@2x.png" class="img-responsive">-->
+                            <!--</div>-->
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#carousel" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"
+                                  style="color: #e71425;"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#carousel" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" style="color: #e71425;"
+                                  aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="messages">
+                <div class="characters ">
+                    <p class="indent2 mb0">
+                        “读万卷书不如行万里路;
+                    </p>
+                    <p class="indent2">
+                        行万里路不如阅人无数”
+                    </p>
+                    <p class="indent2 mb0">
+                        体现了柏宏体系的LifeStyle
+                    </p>
+                    <p class="tac">
+                        1/3时间学习<br>1/3时间旅游<br>1/3时间工作
+                    </p>
+                    <p class="indent2 mb0">
+                        1/3时间学习让你读万卷书
+                    </p>
+                    <p class="indent2 mb0">
+                        1/3时间旅游让你行万里路
+                    </p>
+                    <p class="indent2">
+                        1/3时间工作让你阅人无数
+                    </p>
+                    <p class="indent2 mb0">
+                        郎平指导女排球员是很严格的，
+                    </p>
+                    <p class="indent2 mb0">
+                        但是她更关心女排成员的个人成长，
+                    </p>
+                    <p class="indent2 mb0">
+                        希望她们不要把排球变成生命的全部，
+                    </p>
+                    <p class="indent2 mb0">
+                        更要努力的寻找自己生活的意义！
+                    </p>
+                    <p class="indent2 mb0" >
+                        不仅当一个优秀的球员，
+                    </p>
+                    <p class="indent2 mb0">
+                        更要成为一个优秀的人！
+                    </p>
+                    <p class="indent2 mb0">
+                        柏宏体系实践1/3的lifeStyle，利用更高效的工作方式和时间管理，
+                    </p>
+                    <p class="indent2">
+                        一起成为更优秀的人。
+                    </p>
+                    <p class="indent2">
+                        【行事历展示】
+                    </p>
+                    <img class="lazy" data-original="./img/life_img_calendar@2x.png">
+                    <p class="indent2" style="margin-top: 22px;">
+                        【旅游篇】
+                    </p>
+                    <p class="indent2 mb0">
+                        根据敦煌遗书记载，千年之前人们会在腊八节到达莫高窟，​‎ 
+                    </p>
+                    <p class="indent2 mb0">
+                        在佛龛上亮点禮佛的蜡烛和灯油，
+                    </p>
+                    <p class="indent2 mb0">
+                        在鸣山沙的崖壁上成千百上个佛窟，
+                    </p>
+                    <p class="indent2 mb0">
+                        闪耀出如星辰般的点点佛光銀河。
+                    </p>
+                    <p class="indent2 mb0">
+                        沙深漠处、千年古国、文明荟萃之在所在。
+                    </p>
+                    <p class="indent2 mb0">
+                        有著1655年的年莫高窟壁畫，
+                    </p>
+                    <p class="indent2 mb0">
+                        承载中国上下五千年另一半的美史术。
+                    </p>
+                    <p class="indent2 mb0">
+                        16窟里的藏进洞，從公四元世紀到十一世紀的抄本写经、絹本畫。
+                    </p>
+                    <p class="indent2 mb0">
+                        包罗万象，卷帙浩繁。世称＂敦煌遺書＂​‎ 
+                    </p>
+                    <p class="indent2 mb0">
+                        又為什麼成了為吾國學術之傷心史呢？​
+                    </p>
+                    <p class="indent2">
+                        溯源千年敦煌遊！
+                    </p>
+                    <video id="dunhuangvideo" muted src="./vedio/dunhuang.mp4" controls="controls" class="video"
+                           playsinline="true" webkit-playsinline="true" x5-playsinline="" x-webkit-airplay="true">
+                        您的浏览器不支持 video 标签。
+                    </video>
+                    <div id="dunhuang" class="carousel slide" style="position: relative;">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img src="./img/life_travel_01@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/life_travel_02@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/life_travel_03@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/life_travel_04@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/life_travel_05@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/life_travel_06@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/life_travel_07@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/life_travel_08@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/life_travel_09@2x.png" class="img-responsive">
+                            </div>
+                            <!--<div class="item">-->
+                                <!--<img src="./img/life_travel_10@2x.png" class="img-responsive">-->
+                            <!--</div>-->
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#dunhuang" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"
+                                  style="color: #e71425;"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#dunhuang" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" style="color: #e71425;"
+                                  aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <p class="indent2 mb0" style="margin-top: 1em;">
+                        詩人說，今天的天空很希臘，
+                    </p>
+                    <p class="indent2 mb0">
+                        愛琴海的藍是屬於上帝的顏色。
+                    </p>
+                    <p class="indent2 mb0">
+                        古希臘文明是人類文化史上一道不可逾越的高牆，眾神的國度裡，
+                    </p>
+                    <p class="indent2">
+                        高貴的單純、靜穆的偉大。
+                    </p>
+                    <p class="indent2 mb0" style="margin-top: 22px;">
+                        【学习篇】
+                    </p>
+                    <p class="indent2 mb0">
+                        在包豪斯的培训模组中，进修会、高手交流会、匠心计划都是我们非常核心的培训矩阵
+                    </p>
+                    <p class="indent2 mb0">
+                        进修会：三天两夜的集中培训，让我们拥有更专业的能力，更好的服务我们的客户
+                    </p>
+                    <p class="indent2 mb0">
+                        高手交流会：会把全国47个分公司、1365位MDRT聚集在一起，现场roleplay，
+                    </p>
+                    <p class="indent2 mb0">
+                        高手过招，激荡出崭新的思维；
+                    </p>
+                    <p class="indent2 mb0">
+                        匠心计划：每个月邀请一位行业KOL来给我们做更加落地的内容转换，
+                    </p>
+                    <p class="indent2 mb0">
+                        同时产生出一份标准的销售资料；
+                    </p>
+                    <p class="indent2 mb0">
+                        税务律师、MDRT终身会员、资深会计师、
+                    </p>
+                    <p class="indent2">
+                        30年金融经验的行业大咖为我们团队赋能；
+                    </p>
+                    <div id="study" class="carousel slide" style="position: relative;">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img src="./img/study_img_01@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/study_img_02@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/study_img_03@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/study_img_04@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/study_img_05@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/study_img_06@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/study_img_07@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/study_img_08@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/study_img_09@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/study_img_10@2x.png" class="img-responsive">
+                            </div>
+                            <!--<div class="item">-->
+                                <!--<img src="./img/study_img_11@2x.png" class="img-responsive">-->
+                            <!--</div>-->
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#study" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"
+                                  style="color: #e71425;"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#study" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" style="color: #e71425;"
+                                  aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <p class="indent2 mb0" style="margin-top: 22px;">
+                        【工作篇】
+                    </p>
+                    <p class="indent2 mb0">
+                        <b>财富管理不仅是一套模型，更是一门工匠于心的艺术——保险经纪人是理性艺术家。</b>
+                    </p>
+                    <p class="indent2 mb0">
+                        客户情况千差万别，一个保险经纪人最重要的职责就是帮助客户明细方向，理顺关系，理性
+                        选择，最终形成一套最契合客户需求的产品、工具和服务。
+                    </p>
+                    <p class="indent2 mb0">
+                        <b>财富规划是静态的，财富管理是 动态的。</b>
+                    </p>
+                    <p class="indent2 mb0">
+                        只有在这样严格的学习制度和科学的系统性学习下，<b>这群追求理性美学的「保险艺术家」才
+                        能够分析顾客的真正需求，为顾客们创造真正具有蓬勃生命力、动态的财务构造模型——一
+                        份经过严格设计的艺术品。</b>
+                    </p>
+                    <div id="work" class="carousel slide" style="position: relative;">
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="item active">
+                                <img src="./img/work_img_01@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/work_img_02@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/work_img_03@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/work_img_04@2x.png" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="./img/work_img_05@2x.png" class="img-responsive">
+                            </div>
+                            <!--<div class="item">-->
+                                <!--<img src="./img/work_img_06@2x.png" class="img-responsive">-->
+                            <!--</div>-->
+                            <!--<div class="item">-->
+                                <!--<img src="./img/work_img_07@2x.png" class="img-responsive">-->
+                            <!--</div>-->
+                        </div>
+
+                        <!-- Controls -->
+                        <a class="left carousel-control" href="#work" role="button" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"
+                                  style="color: #e71425;"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#work" role="button" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right" style="color: #e71425;"
+                                  aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="arrow" style="display: none">
+    <div class="pre-box1">
+        <div class="pre1"></div>
+    </div>
+    <div class="pre-box2">
+        <div class="pre2"></div>
+    </div>
+    <div class="pre-box3">
+        <div class="pre3"></div>
+    </div>
+    <div class="pre-box4">
+        <div class="pre4"></div>
+    </div>
+</div>
+<div class="mask" id="mask" style="display: none;">
+    <div class="alert">
+        <div class="alert-header">
+            温馨提示
+        </div>
+        <div class="alert-content">
+            <div class="qrcode-wrapper">
+                <img class="qrcode" id="qrcode" alt=""/>
+            </div>
+        </div>
+        <div class="alert-attention">
+            <p>1.长按二维码图片保存至手机；</p>
+            <p>2.使用微信扫一扫，选择本地照片，扫描二维码开始智能面试。</p>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript ">
+    function getUrlParam(name) {
+        // 取得url中?后面的字符
+        var query = window.location.search.substring(1);
+        // 把参数按&拆分成数组
+        var param_arr = query.split("&");
+        for (var i = 0; i < param_arr.length; i++) {
+            var pair = param_arr[i].split("=");
+            if (pair[0] == name) {
+                return pair[1];
+            }
+        }
+        return (false);
+    }
+
+    $(function () {
+        let isPlay = 'play';
+        let isDunhuangPlay = 'play';
+        let isCarousel = false;
+        let isDunhuang = false;
+        let isStudy = false;
+        let isWork = false;
+        let availHeight = window.screen.availHeight;
+        let toggle = 'brief';
+        $(window).on('scroll',function(){
+            if($(this).scrollTop()>220){
+                $('.arrow').show();
+            }else {
+                $('.arrow').hide();
+            }
+            if($('#headervideo')[0].getBoundingClientRect().top<=-200){
+                if(isPlay=='play'){
+                    $('#headervideo')[0].pause();
+                    isPlay='pause';
+                }
+            }else {
+                if(isPlay=='pause'){
+                    $('#headervideo')[0].play();
+                    isPlay='play';
+                }
+            }
+            if(toggle=='introduce'){
+                if(!$('#carousel img')[0].src){
+                    if($('#carousel')[0].getBoundingClientRect().top-availHeight<=150){
+                        $('#carousel img').each(function (i,ele) {
+                            $(ele).attr('src',$(ele).attr('img'));
+                        })
+                    }
+                }
+                if($('#carousel')[0].getBoundingClientRect().top-availHeight<=0){
+                    if(!isCarousel){
+                        $('#carousel').carousel({interval: 2000});
+                        isCarousel = true;
+                    }
+                }else {
+                    if(isCarousel){
+                        $('#carousel').carousel('pause');
+                        isCarousel = false;
+                    }
+                }
+            }
+            if(toggle=='activity'){
+                let dunhuangTop = $('#dunhuang')[0].getBoundingClientRect().top;
+                let studyTop = $('#study')[0].getBoundingClientRect().top;
+                let workTop = $('#work')[0].getBoundingClientRect().top;
+                let dunhuangVideoTop = $('#dunhuangvideo')[0].getBoundingClientRect().top;
+                if(dunhuangVideoTop-availHeight<=0&&dunhuangVideoTop>=-200){
+                    if(isDunhuangPlay=='pause'){
+                        $('#dunhuangvideo')[0].play();
+                        isDunhuangPlay='play';
+                    }
+                }else {
+                    if(isDunhuangPlay=='play'){
+                        $('#dunhuangvideo')[0].pause();
+                        isDunhuangPlay='pause';
+                    }
+                }
+                if(dunhuangTop-availHeight<=0&&dunhuangTop>=-300){
+                    if(!isDunhuang){
+                        $('#dunhuang').carousel({interval: 2000});
+                        isDunhuang = true;
+                    }
+                }else {
+                    if(isDunhuang){
+                        $('#dunhuang').carousel('pause');
+                        isDunhuang = false;
+                    }
+                }
+                if(studyTop-availHeight<=0&&studyTop>=-300){
+                    if(!isStudy){
+                        $('#study').carousel({interval: 2000});
+                        isStudy = true;
+                    }
+                }else {
+                    if(isStudy){
+                        $('#study').carousel('pause');
+                        isStudy = false;
+                    }
+                }
+                if(workTop-availHeight<=0&&workTop>=-300){
+                    if(!isWork){
+                        $('#work').carousel({interval: 2000});
+                        isWork = true;
+                    }
+                }else {
+                    if(isWork){
+                        $('#work').carousel('pause');
+                        isWork = false;
+                    }
+                }
+            }
+        });
+        $('.arrow').on('click',function () {
+            // $(window).scrollTop(0);
+            let jian = $(window).scrollTop()/5;
+            let ds = setInterval(function () {
+                let winTop = $(window).scrollTop();
+                if(winTop<=0){
+                    clearInterval(ds)
+                }else {
+                    $(window).scrollTop(winTop-jian);
+                }
+            },50);
+        });
+        $("img.lazy").lazyload({effect: "fadeIn", threshold: 300});
+        var smallPro = false;
+        var info = getUrlParam("info");
+        smallPro = (info == undefined || info == '' || info == null);
+        // isMiniProgram(smallPro).then(function (res) {
+        //     smallPro = true;
+        // }, function () {
+        //
+        // });
+        // wx.miniProgram.getEnv(function (res) {
+        //     if (res.miniprogram) {
+        //         smallPro = true;
+        //     } else {
+        //         smallPro = false;
+        //     }
+        // });
+        // console.log("=====smallPro=====", smallPro);
+        if (!smallPro) {
+            var data = {
+                info: info
+            };
+            var requestUrl = window.location.protocol + "//" + window.location.host;
+            $.ajax({
+                type: "post",
+                url: requestUrl + "/resumeInfo/getQrcode",
+                dataType: "JSON",
+                async: true,
+                data: JSON.stringify(data),
+                contentType: "application/json",
+                success: function (data, textStatus, jqXHR) {
+                    var res = JSON.parse(JSON.stringify(data));
+                    console.log(res);
+                    if (res.code == 0) {
+                        $("#qrcode").attr("src", res.data.qrCodeBase64);
+                    } else {
+                        alert(res.msg);
+                    }
+                },
+                error: function (XMLHttpRequest, errMsg) {
+                    $("#zsrhVideo").show();
+                    $("#mask").hide();
+                    alert(errMsg);
+                }
+
+            });
+
+        }
+
+        $("#test").on('click', function () {
+            console.log("==test点击===", smallPro);
+            if (smallPro) {
+                var valid = getUrlParam("valid");
+                if (valid == '-1') {
+                    wx.miniProgram.navigateTo({
+                        url: '/pages/introduction/expire/expire',
+                        success: function () {
+                            console.log('success');
+                        },
+                        fail: function (e) {
+                            console.log('跳转回小程序的页面fail');
+                        },
+                    });
+                } else {
+                    wx.miniProgram.switchTab({
+                        url: '/pages/index/index',
+                        success: function () {
+                            console.log('success');
+                        },
+                        fail: function (e) {
+                            alert("失败", e);
+                            console.log('跳转回小程序的页面fail');
+                        },
+                    });
+                }
+            } else {
+                $("#zsrhVideo").hide();
+                $("#mask").show();
+                var requestData = {
+                    "info": info
+                };
+                $.ajax({
+                    type: "post",
+                    url: requestUrl + "/userOperLog/savePxLog",
+                    dataType: "JSON",
+                    async: true,
+                    data: JSON.stringify(requestData),
+                    contentType: "application/json",
+                    success: function (data, textStatus, jqXHR) {
+                        var res = JSON.parse(JSON.stringify(data));
+                        console.log(res);
+                    },
+                    error: function (XMLHttpRequest, errMsg) {
+
+                    }
+                });
+            }
+        });
+        $("#mask").hide();
+        $("#mask").on("click", function () {
+            $("#zsrhVideo").show();
+            $(this).hide();
+        });
+        var baseUrl = window.location.protocol + "//" + window.location.host;
+        baseUrl = 'https://system.prajnasys.net';
+        $('#headervideo').attr('src', baseUrl + '/files/applet/vedio/brief.mp4');
+        $('a[data-toggle="tab"][name="brief"]').on('shown.bs.tab', function (e) {
+            $('#headervideo').attr('src', baseUrl + '/files/applet/vedio/brief.mp4');
+            toggle = 'brief';
+        });
+        $('a[data-toggle="tab"][name="introduce"]').on('shown.bs.tab', function (e) {
+            $('#headervideo').attr('src', baseUrl + '/files/applet/vedio/introduce.mp4');
+            toggle = 'introduce';
+        });
+        $('a[data-toggle="tab"][name="activity"]').on('shown.bs.tab', function (e) {
+            $('#headervideo').attr('src', baseUrl + '/files/applet/vedio/activity.mp4');
+            $('#dunhuangvideo').attr('src', baseUrl + '/files/applet/vedio/dunhuang.mp4');
+            toggle = 'activity';
+        });
+        $('a[data-toggle="tab"][name="brief"]').trigger('shown.bs.tab');
+        function doPlay(){
+            WeixinJSBridge.invoke('getNetworkType', {}, function (e) {
+                var $video1 = $("#headervideo");
+                $video1[0].play();
+            })
+        }
+        if (window.WeixinJSBridge) {
+            doPlay();
+        } else {
+            document.addEventListener("WeixinJSBridgeReady", function(){
+                doPlay();
+            }, false);
+        }
+    });
+</script>
+</html>
